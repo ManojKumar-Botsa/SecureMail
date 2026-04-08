@@ -1,19 +1,7 @@
-"""
-SecureMail HTTP server.
-
-Endpoints:
-- POST /reset: return the initial observation
-- POST /step: apply one action and return observation, reward, done, info
-- GET /state: return current observation without advancing
-- GET /health: liveness check
-- GET /tasks: list available tasks
-"""
-
 import json
-from typing import Any, Dict
-
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
+from typing import Any, Dict
 
 from env import PhishingEnv
 
@@ -45,20 +33,19 @@ async def reset(request: Request) -> Dict[str, Any]:
         body = await request.body()
         if body and body.strip() not in (b"", b"{}"):
             data = json.loads(body)
-            task_index = data.get("task_index")
+            task_index = data.get("task_index", None)
     except Exception:
-        pass  # If body parsing fails, do a random reset.
+        pass
 
     if task_index is not None:
         if not (0 <= task_index < len(TASKS)):
             raise HTTPException(
                 status_code=400,
-                detail=f"task_index out of range (0-{len(TASKS)-1})",
+                detail=f"task_index out of range (0-{len(TASKS)-1})"
             )
         obs = env.reset_with_task(TASKS[task_index])
     else:
         obs = env.reset()
-
     return {"observation": obs.model_dump()}
 
 
@@ -80,7 +67,7 @@ def step(request: StepRequest) -> StepResponse:
     if request.label not in valid_labels:
         raise HTTPException(
             status_code=422,
-            detail=f"Invalid label '{request.label}'. Must be one of: {sorted(valid_labels)}",
+            detail=f"Invalid label '{request.label}'. Must be one of: {sorted(valid_labels)}"
         )
 
     obs, reward, done, info = env.step({"label": request.label})
@@ -95,7 +82,6 @@ def health() -> Dict[str, str]:
 @app.get("/tasks")
 def list_tasks() -> Dict[str, Any]:
     from tasks import TASKS
-
     return {
         "total": len(TASKS),
         "tasks": [
@@ -106,5 +92,5 @@ def list_tasks() -> Dict[str, Any]:
                 "label": t["label"],
             }
             for i, t in enumerate(TASKS)
-        ],
+        ]
     }

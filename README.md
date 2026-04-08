@@ -71,8 +71,11 @@ SecureMail/
 |- grader.py
 |- baseline.py
 |- app.py
-|- server.py
 |- inference.py
+|- server/
+|  |- __init__.py
+|  |- app.py
+|  `- main.py
 |- openenv.yaml
 |- Dockerfile
 `- requirements.txt
