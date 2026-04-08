@@ -1,4 +1,4 @@
-name: securemail-openenv
+name: SecureMail
 version: "1.0.0"
 description: >
   A compact environment for phishing email classification.

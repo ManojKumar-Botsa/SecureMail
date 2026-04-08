@@ -1,5 +1,5 @@
 """
-SecureMail OpenEnv HTTP server.
+SecureMail HTTP server.
 
 Endpoints:
 - POST /reset: return the initial observation
@@ -17,7 +17,7 @@ from pydantic import BaseModel
 
 from env import PhishingEnv
 
-app = FastAPI(title="SecureMail OpenEnv", version="1.0.0")
+app = FastAPI(title="SecureMail", version="1.0.0")
 env = PhishingEnv()
 
 

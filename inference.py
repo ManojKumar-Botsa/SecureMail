@@ -27,7 +27,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
 API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY", "")
 ENV_BASE_URL = os.getenv("SECUREMAIL_URL", "http://localhost:7860").rstrip("/")
 
-BENCHMARK = "securemail-openenv"
+BENCHMARK = "SecureMail"
 MAX_STEPS = 1  # single-step classification episode
 TEMPERATURE = 0.2
 MAX_TOKENS = 50

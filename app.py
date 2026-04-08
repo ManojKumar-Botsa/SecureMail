@@ -1,5 +1,5 @@
 """
-Streamlit UI for SecureMail OpenEnv.
+Streamlit UI for SecureMail.
 The FastAPI server should be running at localhost:7860.
 """
 
@@ -8,8 +8,8 @@ import streamlit as st
 
 API = "http://localhost:7860"
 
-st.set_page_config(page_title="SecureMail OpenEnv")
-st.title("SecureMail OpenEnv")
+st.set_page_config(page_title="SecureMail")
+st.title("SecureMail")
 st.caption("Classify each email as safe, suspicious, or phishing.")
 
 # Sidebar: task selector

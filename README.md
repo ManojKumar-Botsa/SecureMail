@@ -1,10 +1,10 @@
 ---
-title: SecureMail OpenEnv
+title: SecureMail
 sdk: docker
 app_port: 7860
 ---
 
-# SecureMail OpenEnv
+# SecureMail
 
 A small OpenEnv-style environment for phishing email classification.
 
@@ -65,7 +65,7 @@ python -m streamlit run app.py
 ## Project Layout
 
 ```text
-securemail-openenv/
+SecureMail/
 |- env.py
 |- tasks.py
 |- grader.py
