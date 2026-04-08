@@ -1,3 +1,9 @@
+---
+title: SecureMail OpenEnv
+sdk: docker
+app_port: 7860
+---
+
 # SecureMail OpenEnv
 
 A small OpenEnv-style environment for phishing email classification.
@@ -24,18 +30,6 @@ The task set mixes obvious phishing with realistic business email patterns, so s
 | Difficulty tiers | easy / medium / hard |
 | Max reward | 1.0 |
 
-### Observation Example
-
-```python
-Observation(email_text="URGENT: verify your password immediately or your account will be suspended")
-```
-
-### Action Example
-
-```python
-Action(label="phishing")
-```
-
 ## Reward Rules
 
 The grader uses an ordered severity scale:
@@ -50,27 +44,21 @@ The grader uses an ordered severity scale:
 
 This setup penalizes risky misses more than cautious uncertainty.
 
-## Difficulty Tiers
+## Difficulty Breakdown
 
-| Tier | Typical pattern |
-|---|---|
-| Easy | Clear scams, fake domains, obvious pressure language |
-| Medium | Ambiguous alerts that need context checks |
-| Hard | Professional-looking fraud and subtle social engineering |
+- `easy`: 9 tasks
+- `medium`: 7 tasks
+- `hard`: 9 tasks
 
 ## Categories
 
-`credential_theft`, `brand_impersonation`, `bec_fraud`, `invoice_fraud`, `social_engineering`, `account_alert`, `it_impersonation`, `ecommerce_notification`, `internal_communication`, `newsletter`, `prize_scam`, `file_sharing`, `domain_scam`, `identity_theft`
+`credential_theft`, `brand_impersonation`, `bec_fraud`, `invoice_fraud`, `social_engineering`, `account_alert`, `it_impersonation`, `ecommerce_notification`, `internal_communication`, `newsletter`, `prize_scam`, `file_sharing`, `domain_scam`, `identity_theft`, `business_followup`
 
 ## Run Locally
 
 ```bash
 pip install -r requirements.txt
-
-# Run keyword baseline across all tasks
 python baseline.py
-
-# Launch Streamlit demo
 python -m streamlit run app.py
 ```
 
@@ -78,29 +66,16 @@ python -m streamlit run app.py
 
 ```text
 securemail-openenv/
-|- env.py          # Environment implementation
-|- tasks.py        # Labeled task data
-|- grader.py       # Reward function
-|- baseline.py     # Keyword baseline script
-|- app.py          # Streamlit UI
-|- server.py       # FastAPI server
-|- openenv.yaml    # Environment spec
+|- env.py
+|- tasks.py
+|- grader.py
+|- baseline.py
+|- app.py
+|- server.py
+|- inference.py
+|- openenv.yaml
 |- Dockerfile
 `- requirements.txt
-```
-
-## Adding Tasks
-
-Append a new item to `TASKS` in `tasks.py`:
-
-```python
-{
-    "email": "Your email text",
-    "label": "safe" | "suspicious" | "phishing",
-    "difficulty": "easy" | "medium" | "hard",
-    "category": "your_category",
-    "explanation": "Why this label is reasonable."
-}
 ```
 
 ## License
