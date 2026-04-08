@@ -1,0 +1,67 @@
+name: securemail-openenv
+version: "1.0.0"
+description: >
+  A compact environment for phishing email classification.
+  Agents label each email as safe, suspicious, or phishing.
+  The task set includes 25 samples across easy, medium, and hard levels.
+
+author: RL rebels
+tags:
+  - cybersecurity
+  - classification
+  - nlp
+  - phishing
+  - email-security
+
+entry_point: env.py
+baseline: baseline.py
+
+observation_space:
+  type: text
+  description: Raw email body text as a string
+
+action_space:
+  type: classification
+  labels:
+    - safe
+    - suspicious
+    - phishing
+  description: >
+    safe: legitimate email with no clear threat signal
+    suspicious: unclear email that should be reviewed
+    phishing: malicious email trying to steal credentials or money
+
+reward_system:
+  correct: 1.0
+  adjacent_label: 0.5
+  opposite_label: 0.0
+  description: >
+    Labels are ordered by severity: safe (0), suspicious (1), phishing (2).
+    A one-step miss gets 0.5. Opposite labels get 0.0.
+
+tasks:
+  total: 25
+  difficulties:
+    easy: 8
+    medium: 8
+    hard: 9
+  categories:
+    - credential_theft
+    - brand_impersonation
+    - bec_fraud
+    - invoice_fraud
+    - social_engineering
+    - account_alert
+    - it_impersonation
+    - ecommerce_notification
+    - internal_communication
+    - newsletter
+    - prize_scam
+    - file_sharing
+    - domain_scam
+    - identity_theft
+
+docker:
+  image: python:3.11-slim
+  port: 7860
+  cmd: ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "7860"]
