@@ -4,9 +4,9 @@ from grader import grade
 
 
 def test_grade_exact_match():
-    assert grade("safe", "safe") == 1.0
-    assert grade("suspicious", "suspicious") == 1.0
-    assert grade("phishing", "phishing") == 1.0
+    assert grade("safe", "safe") == 0.99
+    assert grade("suspicious", "suspicious") == 0.99
+    assert grade("phishing", "phishing") == 0.99
 
 
 def test_grade_adjacent():
@@ -17,8 +17,8 @@ def test_grade_adjacent():
 
 
 def test_grade_opposite():
-    assert grade("safe", "phishing") == 0.0
-    assert grade("phishing", "safe") == 0.0
+    assert grade("safe", "phishing") == 0.01
+    assert grade("phishing", "safe") == 0.01
 
 
 def test_grade_invalid_label():

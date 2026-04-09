@@ -70,9 +70,9 @@ if result:
     col_a, col_b, col_c = st.columns(3)
     col_a.metric("Your prediction", predicted.upper())
     col_b.metric("Correct label", expected.upper())
-    col_c.metric("Reward", f"{reward:.1f} / 1.0")
+    col_c.metric("Reward", f"{reward:.2f} / 0.99")
 
-    if reward == 1.0:
+    if reward == 0.99:
         st.success("Correct.")
     elif reward == 0.5:
         st.warning(f"Close, but the correct label was **{expected}**.")

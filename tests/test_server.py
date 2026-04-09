@@ -22,7 +22,7 @@ def test_step_returns_reward_and_info():
     assert response.status_code == 200
     body = response.json()
     assert body["done"] is True
-    assert body["reward"] in {0.0, 0.5, 1.0}
+    assert 0.0 < body["reward"] < 1.0
     assert body["info"]["expected_label"] in {"safe", "suspicious", "phishing"}
 
 

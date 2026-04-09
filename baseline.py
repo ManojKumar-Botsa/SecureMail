@@ -69,8 +69,8 @@ for task in TASKS:
     total_reward += reward
     results[info["difficulty"]].append(reward)
 
-    status = "OK" if reward == 1.0 else ("NEAR" if reward == 0.5 else "MISS")
-    print(f"[{status}] [{info['difficulty'].upper():6}] reward={reward:.1f}")
+    status = "OK" if reward == 0.99 else ("NEAR" if reward == 0.5 else "MISS")
+    print(f"[{status}] [{info['difficulty'].upper():6}] reward={reward:.2f}")
     print(f"      Email    : {obs.email_text[:72]}...")
     print(f"      Predicted: {action:10}  Actual: {task['label']}")
     print()
@@ -80,7 +80,7 @@ print("Results by difficulty:")
 for diff, rewards in results.items():
     if rewards:
         avg = sum(rewards) / len(rewards)
-        perfect = sum(1 for r in rewards if r == 1.0)
+        perfect = sum(1 for r in rewards if r == 0.99)
         print(f"  {diff.capitalize():8}: avg={avg:.2f}  exact={perfect}/{len(rewards)}")
 
 print()

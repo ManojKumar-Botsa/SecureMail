@@ -108,10 +108,10 @@ async def run_episode(
     task_index: int,
     task_name: str,
 ) -> float:
-    """Run one episode and return the score in [0.0, 1.0]."""
+    """Run one episode and return the score in (0.0, 1.0)."""
     rewards: List[float] = []
     steps_taken = 0
-    score = 0.0
+    score = 0.01
     success = False
 
     log_start(task=task_name, env=BENCHMARK, model=MODEL_NAME)
@@ -149,8 +149,8 @@ async def run_episode(
     except Exception as exc:
         print(f"[DEBUG] Episode error: {exc}", flush=True)
         if not rewards:
-            rewards = [0.0]
-        score = 0.0
+            rewards = [0.01]
+        score = 0.01
         steps_taken = max(steps_taken, 1)
 
     finally:

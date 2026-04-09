@@ -28,7 +28,7 @@ The task set mixes obvious phishing with realistic business email patterns, so s
 | Action space | `safe` / `suspicious` / `phishing` |
 | Total tasks | 25 |
 | Difficulty tiers | easy / medium / hard |
-| Max reward | 1.0 |
+| Max reward | 0.99 |
 
 ## Reward Rules
 
@@ -38,9 +38,9 @@ The grader uses an ordered severity scale:
 
 | Prediction vs Actual | Reward |
 |---|---|
-| Exact match | `1.0` |
+| Exact match | `0.99` |
 | One step away | `0.5` |
-| Opposite ends | `0.0` |
+| Opposite ends | `0.01` |
 
 This setup penalizes risky misses more than cautious uncertainty.
 

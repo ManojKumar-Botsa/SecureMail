@@ -4,15 +4,18 @@ LABEL_SEVERITY = {
     "phishing": 2,
 }
 
+MIN_SCORE = 0.01
+MAX_SCORE = 0.99
+
 
 def grade(predicted: str, actual: str) -> float:
     """
     Score a predicted label against the ground truth.
 
     Severity ladder: safe (0) -> suspicious (1) -> phishing (2)
-    - 1.0: exact match
+    - MAX_SCORE: exact match
     - 0.5: one step away
-    - 0.0: opposite ends
+    - MIN_SCORE: opposite ends
     """
     if predicted not in LABEL_SEVERITY or actual not in LABEL_SEVERITY:
         raise ValueError(
@@ -21,7 +24,7 @@ def grade(predicted: str, actual: str) -> float:
         )
 
     if predicted == actual:
-        return 1.0
+        return MAX_SCORE
 
     distance = abs(LABEL_SEVERITY[predicted] - LABEL_SEVERITY[actual])
-    return 0.5 if distance == 1 else 0.0
+    return 0.5 if distance == 1 else MIN_SCORE
